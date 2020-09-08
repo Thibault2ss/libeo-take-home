@@ -1,19 +1,22 @@
-import { Drug, Pharmacy } from "./pharmacy";
-
 import fs from "fs";
+import Pharmacy from "./models/pharmacy";
+import Drug from "./models/drug";
+import drugTypes from "./constants/drug_types";
+import drugProperties from "./constants/drug_properties";
 
 const drugs = [
-  new Drug("Doliprane", 20, 30),
-  new Drug("Herbal Tea", 10, 5),
-  new Drug("Fervex", 5, 40),
-  new Drug("Magic Pill", 15, 40)
+  new Drug(drugTypes.DOLIPRANE, 20, 30),
+  new Drug(drugTypes.HERBAL_TEA, 10, 5),
+  new Drug(drugTypes.FERVEX, 5, 40),
+  new Drug(drugTypes.MAGIC_PILL, 15, 40),
+  new Drug(drugTypes.DAFALGAN, 15, 20)
 ];
 const trial = new Pharmacy(drugs);
 
 const log = [];
 
 for (let elapsedDays = 0; elapsedDays < 30; elapsedDays++) {
-  log.push(JSON.stringify(trial.updateBenefitValue()));
+  log.push(JSON.stringify(trial.updateBenefitValue(drugProperties)));
 }
 
 /* eslint-disable no-console */
