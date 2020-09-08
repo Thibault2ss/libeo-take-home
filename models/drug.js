@@ -1,3 +1,8 @@
+import { InvalidArgumentException } from "./errors";
+
+export const MIN_DRUG_BENEFIT = 0;
+export const MAX_DRUG_BENEFIT = 50;
+
 export default class Drug {
   constructor(name, expiresIn, benefit) {
     this._name = name;
@@ -22,6 +27,12 @@ export default class Drug {
   }
 
   set benefit(value) {
-    this._benefit = value;
+    if (!Number.isInteger(value))
+      throw new InvalidArgumentException("benefit arg requires a number");
+
+    this._benefit = Math.max(
+      MIN_DRUG_BENEFIT,
+      Math.min(MAX_DRUG_BENEFIT, value)
+    );
   }
 }
