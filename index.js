@@ -1,8 +1,8 @@
+import fs from "fs";
 import Pharmacy from "./models/pharmacy";
 import Drug from "./models/drug";
 import drugTypes from "./constants/drug_types";
-
-import fs from "fs";
+import drugProperties from "./constants/drug_properties";
 
 const drugs = [
   new Drug(drugTypes.DOLIPRANE, 20, 30),
@@ -16,7 +16,7 @@ const trial = new Pharmacy(drugs);
 const log = [];
 
 for (let elapsedDays = 0; elapsedDays < 30; elapsedDays++) {
-  log.push(JSON.stringify(trial.updateBenefitValue()));
+  log.push(JSON.stringify(trial.updateBenefitValue(drugProperties)));
 }
 
 /* eslint-disable no-console */
