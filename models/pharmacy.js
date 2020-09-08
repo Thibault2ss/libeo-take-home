@@ -1,13 +1,19 @@
+import { InvalidArgumentException } from "./errors";
+
 export default class Pharmacy {
   constructor(drugs = []) {
     this.drugs = drugs;
   }
 
-  /**
-   * Daily update to pharmacy's drugs characteristics
-   * @param drugProperties: decay properties of all non-default drugs in store.
-   */
   updateBenefitValue(drugProperties) {
+    if (!drugProperties)
+      throw new InvalidArgumentException(
+        "updateBenefitValue needs drug properties"
+      );
+    if (!drugProperties.default)
+      throw new InvalidArgumentException(
+        "Drug Properties need a 'default' property"
+      );
     this.drugs.forEach(drug => {
       const properties = drugProperties[drug.name] || drugProperties.default;
       drug.expiresIn += properties.expirationDecay;
