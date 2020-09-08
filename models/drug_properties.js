@@ -1,3 +1,5 @@
+import { InvalidArgumentException } from "./errors";
+
 export default class DrugProperties {
   /**
    * @param expirationDecay: number of days added to the 'expiresIn' after 1 day
@@ -5,6 +7,16 @@ export default class DrugProperties {
    * of benefits added to the drug benefits after 1 day
    */
   constructor({ expirationDecay, benefitDecay }) {
+    if (!Number.isInteger(expirationDecay))
+      throw new InvalidArgumentException(
+        `expirationDecay needs to be an int, received ${typeof expirationDecay}`
+      );
+
+    if (!(typeof benefitDecay === "function"))
+      throw new InvalidArgumentException(
+        `benefitDecay needs to be a function, received ${typeof benefitDecay}`
+      );
+
     this._expirationDecay = expirationDecay;
     this._benefitDecay = benefitDecay;
   }
